@@ -130,17 +130,17 @@ const DEFAULT_RESULT: DictionaryResponse = {
   ],
   origin: "",
   synonyms: [
-    "视觉 (vision)",
-    "视力 (eyesight)",
-    "视野 (field of view)",
-    "瞥见 (glimpse)",
-    "一瞥 (glance)",
-    "发现 (discovery)",
-    "景象 (spectacle)",
-    "看见 (seeing)"
+    "视觉「vision」",
+    "视力「eyesight」",
+    "视野「field of view」",
+    "瞥见「glimpse」",
+    "一瞥「glance」",
+    "发现「discovery」",
+    "景象「spectacle」",
+    "看见「seeing」"
   ],
-  antonyms: ["失明 (blindness)", "忽视 (ignore)", "忽略 (overlook)"],
-  learning_tip: `从名词"视力 (eyesight)"的含义开始学习。名词 sight 最常见的用法指"视觉能力"，而动词则表示"看到、发现"。注意与同音词 cite（引用）和 site（地点）区分。`
+  antonyms: ["失明「blindness」", "忽视「ignore」", "忽略「overlook」"],
+  learning_tip: `从名词"视力「eyesight」"的含义开始学习。名词 sight 最常见的用法指"视觉能力"，而动词则表示"看到、发现"。注意与同音词 cite（引用）和 site（地点）区分。`
 };
 
 const PART_OF_SPEECH_LABELS: Record<string, string> = {
@@ -288,26 +288,24 @@ export function DictionarySearch() {
       {result ? (
         <section className="result-panel" aria-live="polite">
           <div className="result-header">
-            <div>
-              <h2>{result.word}</h2>
-            </div>
-            <div className="result-meta">
+            <h2 className="result-word">
+              {result.word}
               {result.phonetic ? (
                 result.audio_url ? (
                   <button
-                    className={`pronunciation-button${isPlayingAudio ? " pronunciation-button--playing" : ""}`}
+                    className={`result-phonetic${isPlayingAudio ? " pronunciation-button--playing" : ""}`}
                     type="button"
                     onClick={handlePronunciationPlay}
                     aria-label={isPlayingAudio ? `正在播放 ${result.word} 发音` : `播放 ${result.word} 发音`}
                   >
-                    <span>{result.phonetic}</span>
+                    {result.phonetic}
                     {isPlayingAudio ? <span className="pronunciation-button__indicator" aria-hidden="true" /> : null}
                   </button>
                 ) : (
-                  <span>{result.phonetic}</span>
+                  <span className="result-phonetic">{result.phonetic}</span>
                 )
               ) : null}
-            </div>
+            </h2>
           </div>
 
           <div className="meaning-list">
@@ -316,8 +314,10 @@ export function DictionarySearch() {
                 <p className="meta-label">{getPartOfSpeechLabel(meaning.part_of_speech)}</p>
                 {meaning.definitions.map((definition) => (
                   <div className="definition-block" key={definition.en}>
-                    <p>{definition.en}</p>
-                    {definition.zh ? <p className="definition-chinese">{definition.zh}</p> : null}
+                    <p className="definition-text">
+                      {definition.en}
+                      {definition.zh ? <span className="definition-zh">「{definition.zh}」</span> : null}
+                    </p>
                     {definition.example ? (
                       <p className="definition-example">
                         Example: {definition.example_zh || definition.example}

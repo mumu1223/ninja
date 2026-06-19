@@ -79,7 +79,7 @@ class DeepSeekDictionaryEnricher:
                             "synonyms_zh, antonyms_zh. meanings must align by index with the input meanings, and each "
                             "definition must align by index with the input definitions. Each definition object must "
                             "contain zh and example_zh. "
-                            "For synonyms_zh and antonyms_zh, format each item as '中文 (English)' — e.g. '视觉 (vision)'. "
+                            "For synonyms_zh and antonyms_zh, format each item as '中文「English」' — e.g. '视觉「vision」'. "
                             "For learning_tip_zh, include key English terms in parentheses after their Chinese translations."
                         ),
                         "entry": compact_entry,
