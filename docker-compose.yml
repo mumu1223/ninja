@@ -1,12 +1,97 @@
-version: "3.8"
-
 services:
-  static-site:
-    build: .
-    container_name: xhome
+  postgres:
+    image: postgres:16-alpine
+    container_name: latesight-postgres
+    environment:
+      POSTGRES_DB: latesight
+      POSTGRES_USER: latesight
+      POSTGRES_PASSWORD: change-me
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U latesight -d latesight"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: latesight-valkey
+    command: ["valkey-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - valkey-data:/data
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+    container_name: latesight-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_started
+    environment:
+      APP_ENV: production
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: latesight
+      POSTGRES_USER: latesight
+      POSTGRES_PASSWORD: change-me
+      VALKEY_HOST: valkey
+      VALKEY_PORT: 6379
+      VALKEY_PASSWORD: ""
+      DEEPSEEK_API_KEY: ""
+      DEEPSEEK_BASE_URL: https://api.deepseek.com
+      DICTIONARY_PROVIDER: free_dictionary
+      MERRIAM_WEBSTER_API_KEY: ""
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  home:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: "@latesight/home"
+        APP_DIR: "apps/home"
+        APP_PORT: "3000"
+    container_name: latesight-home
+    expose:
+      - "3000"
+    restart: unless-stopped
+
+  dict:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: "@latesight/dict"
+        APP_DIR: "apps/dict"
+        APP_PORT: "3001"
+    container_name: latesight-dict
+    expose:
+      - "3001"
+    restart: unless-stopped
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: latesight-proxy
+    depends_on:
+      - api
+      - home
+      - dict
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./certs:/etc/nginx/certs:ro
-    restart: always
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  valkey-data:

@@ -1,0 +1,6 @@
+.panel-copy {
+  margin: 0 0 16px;
+  max-width: 760px;
+  color: var(--color-muted);
+  line-height: var(--leading-body);
+}

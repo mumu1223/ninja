@@ -1,0 +1,17 @@
+{
+  "name": "latesight",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:home": "turbo dev --filter=@latesight/home",
+    "dev:dict": "turbo dev --filter=@latesight/dict",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,50 @@
+:root {
+  color-scheme: light;
+
+  --color-ink: #111317;
+  --color-paper: #f4f2ee;
+  --color-paper-strong: #ece8e1;
+  --color-line: rgba(17, 19, 23, 0.14);
+  --color-line-strong: rgba(17, 19, 23, 0.28);
+  --color-muted: #5a616b;
+  --color-accent-red: #d71920;
+  --color-accent-blue: #245c91;
+  --color-surface: rgba(255, 255, 255, 0.78);
+  --color-surface-strong: rgba(255, 255, 255, 0.92);
+
+  --font-sans: "Avenir Next", "Segoe UI", "PingFang SC", sans-serif;
+  --font-mono: "SFMono-Regular", "SF Mono", "Consolas", "Liberation Mono", monospace;
+
+  --text-display: clamp(2.8rem, 7vw, 5.8rem);
+  --text-h1: clamp(2.2rem, 5vw, 4rem);
+  --text-h2: clamp(1.6rem, 2.8vw, 2.2rem);
+  --text-body: 1rem;
+  --text-meta: 0.8rem;
+
+  --leading-display: 0.94;
+  --leading-tight: 1.1;
+  --leading-body: 1.7;
+
+  --tracking-label: 0.14em;
+  --tracking-meta: 0.08em;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  --shadow-soft: 0 18px 40px rgba(17, 19, 23, 0.06);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --space-9: 104px;
+
+  --container-width: 1180px;
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+}

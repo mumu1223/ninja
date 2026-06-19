@@ -1,0 +1,3 @@
+{
+  "extends": "@latesight/config/tsconfig-base.json"
+}

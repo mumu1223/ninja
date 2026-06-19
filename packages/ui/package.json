@@ -1,0 +1,20 @@
+{
+  "name": "@latesight/ui",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./brand-logo": "./src/brand-logo.tsx",
+    "./brand-system.css": "./src/brand-system.css",
+    "./design-tokens.css": "./src/design-tokens.css",
+    "./page-shell": "./src/page-shell.tsx",
+    "./site-footer": "./src/site-footer.tsx",
+    "./site-header": "./src/site-header.tsx",
+    "./site-card": "./src/site-card.tsx",
+    "./site-metadata": "./src/site-metadata.ts"
+  },
+  "devDependencies": {
+    "@latesight/config": "workspace:*",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "extends": "@latesight/config/tsconfig-package.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

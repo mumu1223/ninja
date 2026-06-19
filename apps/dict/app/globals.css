@@ -1,0 +1,221 @@
+.dict-panel {
+  min-height: 100%;
+  display: grid;
+  gap: 20px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-meta);
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+}
+
+.search-stack {
+  position: relative;
+}
+
+.search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  background: #fff;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-row input:focus,
+.search-row input:focus-visible {
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 0 3px rgba(36, 92, 145, 0.12);
+  outline: none;
+}
+
+.suggestion-panel {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 20px 40px rgba(17, 35, 57, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.suggestion-item {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.suggestion-item:hover {
+  background: rgba(36, 92, 145, 0.08);
+  transform: translateX(2px);
+}
+
+.search-row button[disabled] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.query-hint {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.inline-chip {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.inline-chip:hover {
+  border-color: var(--color-accent-blue);
+  transform: translateY(-1px);
+}
+
+.status-message {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+}
+
+.status-message--error {
+  border: 1px solid rgba(158, 36, 36, 0.2);
+  background: rgba(158, 36, 36, 0.06);
+  color: #8a1f1f;
+}
+
+.result-panel {
+  display: grid;
+  gap: 20px;
+}
+
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.result-header h2 {
+  margin: 8px 0 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  color: var(--color-muted);
+}
+
+.meaning-list {
+  display: grid;
+  gap: 16px;
+}
+
+.meaning-card {
+  padding: 18px 20px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.definition-block + .definition-block {
+  margin-top: 14px;
+}
+
+.definition-block p {
+  margin: 0;
+}
+
+.definition-example {
+  margin-top: 8px !important;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.support-card p:last-child,
+.result-empty p:last-child {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  line-height: var(--leading-body);
+}
+
+.result-empty {
+  padding: 20px;
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.dict-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.dict-metric h3 {
+  margin: 10px 0 8px;
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+}
+
+.dict-metric p:last-child {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: var(--leading-body);
+}
+
+@media (max-width: 640px) {
+  .search-row {
+    flex-direction: column;
+  }
+
+  .search-row button {
+    height: 52px;
+  }
+
+  .result-header {
+    flex-direction: column;
+  }
+
+  .inline-chip {
+    margin-top: 8px;
+  }
+}
