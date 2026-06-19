@@ -1,28 +1,5 @@
-FROM node:22-alpine AS base
-
-RUN npm install -g pnpm@10.0.0
-
-FROM base AS deps
-WORKDIR /app
-
-COPY package.json pnpm-workspace.yaml turbo.json tsconfig.json ./
-COPY apps/home/package.json apps/home/package.json
-COPY apps/dict/package.json apps/dict/package.json
-COPY packages/config/package.json packages/config/package.json
-COPY packages/ui/package.json packages/ui/package.json
-COPY pnpm-lock.yaml ./
-
-RUN pnpm install --frozen-lockfile --config.node-linker=hoisted
-
-FROM deps AS builder
-WORKDIR /app
-
-ARG APP_NAME
-
-COPY . .
-
-RUN pnpm --filter ${APP_NAME} build
-
+# Runner stage — deps and build are pre-built on host filesystem
+# via volume-mounted container (bypasses Docker VFS driver bug on CentOS 7)
 FROM node:22-alpine AS runner
 WORKDIR /app
 
@@ -36,9 +13,9 @@ ENV APP_DIR=${APP_DIR}
 
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
-COPY --from=builder /app/${APP_DIR}/.next/standalone ./
-COPY --from=builder /app/${APP_DIR}/.next/static ./${APP_DIR}/.next/static
-COPY --from=builder /app/${APP_DIR}/public ./${APP_DIR}/public
+COPY ${APP_DIR}/.next/standalone ./
+COPY ${APP_DIR}/.next/static ./${APP_DIR}/.next/static
+COPY ${APP_DIR}/public ./${APP_DIR}/public
 
 USER nextjs
 
