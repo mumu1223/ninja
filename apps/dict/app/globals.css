@@ -90,13 +90,6 @@ button.result-phonetic {
   text-underline-offset: 3px;
 }
 
-button.result-phonetic::before {
-  content: "🔈";
-  font-size: 1.15em;
-  text-decoration: none;
-  display: inline-block;
-}
-
 button.result-phonetic:hover {
   color: var(--color-ink);
 }
@@ -160,9 +153,9 @@ button.result-phonetic:hover {
 }
 
 .definition-example {
-  margin-top: 8px !important;
+  margin-top: 5px;
   color: var(--color-muted);
-  font-style: italic;
+  font-size: 0.85em;
 }
 
 .support-grid {

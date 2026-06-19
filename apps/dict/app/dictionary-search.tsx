@@ -305,7 +305,7 @@ export function DictionarySearch() {
                     </p>
                     {definition.example ? (
                       <p className="definition-example">
-                        Example: {definition.example}
+                        — {definition.example}
                       </p>
                     ) : null}
                   </div>
