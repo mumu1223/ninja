@@ -25,12 +25,115 @@ type DictionaryResponse = {
   learning_tip: string;
 };
 
-type DictionarySuggestionResponse = {
-  query: string;
-  suggestions: string[];
+const DEFAULT_WORD = "sight";
+
+const DEFAULT_RESULT: DictionaryResponse = {
+  word: "sight",
+  phonetic: "/saɪt/",
+  audio_url: "https://api.dictionaryapi.dev/media/pronunciations/en/sight-us.mp3",
+  meanings: [
+    {
+      part_of_speech: "noun",
+      definitions: [
+        {
+          en: "(in the singular) The ability to see.",
+          zh: "视力",
+          example: "He is losing his sight and now can barely read.",
+          example_zh: "他正在失去视力，现在几乎无法阅读。"
+        },
+        {
+          en: "The act of seeing; perception of objects by the eye; view.",
+          zh: "看见；视觉；景象",
+          example: "to gain sight of land",
+          example_zh: "看见陆地"
+        },
+        {
+          en: "Something seen.",
+          zh: "所见之物；景象",
+          example: "",
+          example_zh: ""
+        },
+        {
+          en: "Something worth seeing; a spectacle, either good or bad.",
+          zh: "值得一看的东西；景象，无论好坏",
+          example:
+            "We went to London and saw all the sights – Buckingham Palace, Tower Bridge, and so on.",
+          example_zh: "我们去了伦敦，参观了所有景点——白金汉宫、塔桥等等。"
+        },
+        {
+          en: "A device used in aiming a projectile, through which the person aiming looks at the intended target.",
+          zh: "瞄准器；瞄准镜",
+          example: "",
+          example_zh: ""
+        },
+        {
+          en: "A small aperture through which objects are to be seen, and by which their direction is settled or ascertained.",
+          zh: "观测孔；准星",
+          example: "the sight of a quadrant",
+          example_zh: "象限仪的观测孔"
+        },
+        {
+          en: "A great deal, a lot; frequently used to intensify a comparative.",
+          zh: "大量，许多（常用于加强比较级）",
+          example: "This is a darn sight better than what I'm used to at home!",
+          example_zh: "这比我家里常用的好得多！"
+        },
+        {
+          en: "In a drawing, picture, etc., that part of the surface, as of paper or canvas, which is within the frame or the border or margin. In a frame, the open space, the opening.",
+          zh: "（绘画等的）画面内区域；边框内的空白",
+          example: "",
+          example_zh: ""
+        },
+        {
+          en: "The instrument of seeing; the eye.",
+          zh: "视觉器官；眼睛",
+          example: "",
+          example_zh: ""
+        },
+        {
+          en: "Mental view; opinion; judgment.",
+          zh: "看法；观点；判断",
+          example: "In their sight it was harmless.",
+          example_zh: "在他们看来，这并无害处。"
+        }
+      ]
+    },
+    {
+      part_of_speech: "verb",
+      definitions: [
+        {
+          en: "To register visually.",
+          zh: "看到；观察到",
+          example: "",
+          example_zh: ""
+        },
+        {
+          en: "To get sight of (something).",
+          zh: "看见；发现",
+          example: "to sight land from a ship",
+          example_zh: "从船上看见陆地"
+        },
+        {
+          en: "To apply sights to; to adjust the sights of; also, to give the proper elevation and direction to by means of a sight.",
+          zh: "安装瞄准器；调整瞄准器；用瞄准器对准",
+          example: "to sight a rifle or a cannon",
+          example_zh: "给步枪或大炮安装瞄准器"
+        },
+        {
+          en: "To take aim at.",
+          zh: "瞄准",
+          example: "",
+          example_zh: ""
+        }
+      ]
+    }
+  ],
+  origin: "",
+  synonyms: ["视觉", "视力", "觇孔", "瞄准镜", "视野", "瞥见", "一瞥", "发现"],
+  antonyms: [],
+  learning_tip: "从名词"视力"的含义开始学习。"
 };
 
-const DEFAULT_WORD = "resilience";
 const PART_OF_SPEECH_LABELS: Record<string, string> = {
   noun: "Noun",
   verb: "Verb",
@@ -53,55 +156,12 @@ function getPartOfSpeechLabel(partOfSpeech: string) {
 
 export function DictionarySearch() {
   const [word, setWord] = useState(DEFAULT_WORD);
-  const [result, setResult] = useState<DictionaryResponse | null>(null);
+  const [result, setResult] = useState<DictionaryResponse | null>(DEFAULT_RESULT);
   const [error, setError] = useState<string>("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const requestIdRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    const normalized = word.trim().toLowerCase();
-
-    if (normalized.length < 2) {
-      setSuggestions([]);
-      return;
-    }
-
-    requestIdRef.current += 1;
-    const currentRequestId = requestIdRef.current;
-    const controller = new AbortController();
-
-    const timer = window.setTimeout(async () => {
-      try {
-        const response = await fetch(
-          `/api/v1/dictionary/suggestions?q=${encodeURIComponent(normalized)}`,
-          { signal: controller.signal }
-        );
-
-        if (!response.ok) {
-          return;
-        }
-
-        const payload = (await response.json()) as DictionarySuggestionResponse;
-        if (requestIdRef.current === currentRequestId) {
-          setSuggestions(payload.suggestions.filter((item) => item !== normalized));
-        }
-      } catch (suggestionError) {
-        if (controller.signal.aborted) {
-          return;
-        }
-        setSuggestions([]);
-      }
-    }, 180);
-
-    return () => {
-      controller.abort();
-      window.clearTimeout(timer);
-    };
-  }, [word]);
+  const hasInteractedRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -116,6 +176,14 @@ export function DictionarySearch() {
     setIsPlayingAudio(false);
   }, [result?.audio_url]);
 
+  function handleInputFocus() {
+    if (!hasInteractedRef.current) {
+      hasInteractedRef.current = true;
+      setWord("");
+      setResult(null);
+    }
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -127,7 +195,6 @@ export function DictionarySearch() {
     }
 
     setError("");
-    setShowSuggestions(false);
 
     startTransition(async () => {
       try {
@@ -154,11 +221,6 @@ export function DictionarySearch() {
         setResult(null);
       }
     });
-  }
-
-  function applySuggestion(nextWord: string) {
-    setWord(nextWord);
-    setShowSuggestions(false);
   }
 
   async function handlePronunciationPlay() {
@@ -202,11 +264,8 @@ export function DictionarySearch() {
               name="word"
               aria-label="输入要查询的单词"
               value={word}
-              onChange={(event) => {
-                setWord(event.target.value);
-                setShowSuggestions(true);
-              }}
-              onFocus={() => setShowSuggestions(true)}
+              onChange={(event) => setWord(event.target.value)}
+              onFocus={handleInputFocus}
               placeholder="例如 resilience"
               autoComplete="off"
             />
@@ -214,21 +273,6 @@ export function DictionarySearch() {
               {isPending ? "Searching..." : "Search"}
             </button>
           </div>
-          {showSuggestions && suggestions.length ? (
-            <div className="suggestion-panel" role="listbox" aria-label="Word suggestions">
-              {suggestions.map((suggestion) => (
-                <button
-                  key={suggestion}
-                  type="button"
-                  className="suggestion-item"
-                  onMouseDown={(event) => event.preventDefault()}
-                  onClick={() => applySuggestion(suggestion)}
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          ) : null}
         </div>
       </form>
 
