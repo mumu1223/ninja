@@ -129,9 +129,18 @@ const DEFAULT_RESULT: DictionaryResponse = {
     }
   ],
   origin: "",
-  synonyms: ["视觉", "视力", "觇孔", "瞄准镜", "视野", "瞥见", "一瞥", "发现"],
-  antonyms: [],
-  learning_tip: `从名词"视力"的含义开始学习。`
+  synonyms: [
+    "视觉 (vision)",
+    "视力 (eyesight)",
+    "视野 (field of view)",
+    "瞥见 (glimpse)",
+    "一瞥 (glance)",
+    "发现 (discovery)",
+    "景象 (spectacle)",
+    "看见 (seeing)"
+  ],
+  antonyms: ["失明 (blindness)", "忽视 (ignore)", "忽略 (overlook)"],
+  learning_tip: `从名词"视力 (eyesight)"的含义开始学习。名词 sight 最常见的用法指"视觉能力"，而动词则表示"看到、发现"。注意与同音词 cite（引用）和 site（地点）区分。`
 };
 
 const PART_OF_SPEECH_LABELS: Record<string, string> = {
