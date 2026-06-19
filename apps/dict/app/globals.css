@@ -2,6 +2,7 @@
   min-height: 100%;
   display: grid;
   gap: 20px;
+  align-content: start;
 }
 
 .search-row {
@@ -82,15 +83,25 @@
   vertical-align: middle;
 }
 
-.result-phonetic:has(.pronunciation-button__indicator) {
+button.result-phonetic {
   cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
 }
 
-.pronunciation-button--playing {
+button.result-phonetic::before {
+  content: "🔈";
+  font-size: 1.15em;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button.result-phonetic:hover {
   color: var(--color-ink);
 }
 
-.result-phonetic:hover {
+.pronunciation-button--playing {
   color: var(--color-ink);
 }
 
@@ -152,10 +163,6 @@
   margin-top: 8px !important;
   color: var(--color-muted);
   font-style: italic;
-}
-
-.definition-example--english {
-  font-size: 0.95rem;
 }
 
 .support-grid {
