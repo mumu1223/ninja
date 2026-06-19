@@ -13,8 +13,9 @@ COPY apps/home/package.json apps/home/package.json
 COPY apps/dict/package.json apps/dict/package.json
 COPY packages/config/package.json packages/config/package.json
 COPY packages/ui/package.json packages/ui/package.json
+COPY pnpm-lock.yaml ./
 
-RUN pnpm install --no-frozen-lockfile
+RUN pnpm install --frozen-lockfile --config.node-linker=hoisted
 
 FROM deps AS builder
 WORKDIR /app

@@ -7,7 +7,6 @@ node_modules
 dist
 coverage
 README.md
-pnpm-lock.yaml
 services/api/.venv
 services/api/.pytest_cache
 services/api/**/__pycache__
