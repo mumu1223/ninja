@@ -213,6 +213,7 @@ button.result-phonetic:hover {
 .result-empty p:last-child {
   margin: 8px 0 0;
   color: var(--color-muted);
+  font-size: 0.875rem;
   line-height: var(--leading-body);
 }
 
