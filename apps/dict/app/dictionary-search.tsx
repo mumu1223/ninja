@@ -1,5 +1,6 @@
 "use client";
 
+import { SiteLoader } from "@latesight/ui/site-loader";
 import { FormEvent, useEffect, useRef, useState, useTransition } from "react";
 
 type DictionaryDefinition = {
@@ -258,17 +259,24 @@ export function DictionarySearch() {
               value={word}
               onChange={(event) => setWord(event.target.value)}
               onFocus={handleInputFocus}
-              placeholder="例如 resilience"
+
               autoComplete="off"
             />
             <button className="primary-button" type="submit" disabled={isPending}>
-              {isPending ? "Searching..." : "Search"}
+              {isPending ? <SiteLoader /> : "Search"}
             </button>
           </div>
         </div>
       </form>
 
       {error ? <p className="status-message status-message--error">{error}</p> : null}
+
+      {isPending ? (
+        <div className="search-status" aria-live="polite">
+          <span className="search-status__label">Searching</span>
+          <SiteLoader />
+        </div>
+      ) : null}
 
       {result ? (
         <section className="result-panel" aria-live="polite">

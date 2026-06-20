@@ -8,5 +8,6 @@ out
 dist
 .DS_Store
 coverage
+vps.yml
 certs/
 data/

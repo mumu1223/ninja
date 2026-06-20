@@ -32,7 +32,8 @@ All first-party sites under the Latesight network should feel related through:
 - Shared logo treatment
 - Shared header behavior
 - Shared header title pattern: `Latesight > Product Name`
-- Shared favicon and Apple touch icon sourced from the site logo
+- Shared favicon and Apple touch icon sourced from a shared brand icon asset
+- Shared loading animation using the brand dot sequence loader
 - Shared footer behavior
 - Shared type hierarchy
 - Shared interaction feedback
@@ -65,7 +66,7 @@ Behavior:
 
 - Logo is clickable and returns to the main site home.
 - On hover, use subtle opacity or underline-adjacent treatment if paired with text.
-- The same square logo asset should also be used for favicon and Apple touch icon so browser chrome stays consistent across sites.
+- Favicon and Apple touch icon should use the shared brand icon asset so browser chrome stays consistent across sites.
 
 ## Color System
 
@@ -228,6 +229,13 @@ Rules:
 ## Motion
 
 Motion should confirm interaction and improve orientation.
+
+Loading rule:
+
+- All first-party loading states must use the shared `SiteLoader` dot-sequence animation from `@latesight/ui/site-loader`.
+- The loader should appear as one horizontal row of small multicolor dots derived from the favicon palette.
+- Dots should appear and fade in sequence, not spin, bounce, or use product-specific custom loaders.
+- If a surface needs an inline loading indicator, adapt spacing around `SiteLoader` rather than inventing a new spinner style.
 
 Allowed motion:
 
