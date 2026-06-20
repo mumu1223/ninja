@@ -1,19 +1,27 @@
 import type { CSSProperties } from "react";
 
 const loaderDotColors = [
-  "#f28cb7",
-  "#ffb73b",
-  "#9edb46",
-  "#74d9c6",
-  "#86b8ff",
-  "#a384f5",
-  "#ff6f8c"
+  "#ff5ca8",
+  "#ffad1f",
+  "#94d800",
+  "#2fd6ba",
+  "#4f98ff",
+  "#8f63ff",
+  "#ff466c"
 ] as const;
 
 export function SiteLoader() {
   return (
     <div className="site-loader" role="status" aria-live="polite" aria-label="Loading">
-      <div className="site-loader__track" aria-hidden="true">
+      <div
+        className="site-loader__track"
+        aria-hidden="true"
+        style={
+          {
+            "--loader-dot-count": loaderDotColors.length
+          } as CSSProperties
+        }
+      >
         {loaderDotColors.map((color, index) => (
           <span
             key={color}
@@ -21,7 +29,8 @@ export function SiteLoader() {
             style={
               {
                 "--loader-dot-color": color,
-                "--loader-dot-delay": `${index * 120}ms`
+                "--loader-dot-index": index,
+                "--loader-dot-delay": `${index * 90}ms`
               } as CSSProperties
             }
           />

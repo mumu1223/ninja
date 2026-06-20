@@ -42,40 +42,10 @@
 }
 
 .search-row .primary-button .site-loader__track {
-  gap: 6px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.search-row .primary-button .site-loader__dot {
-  width: 8px;
-  height: 8px;
-}
-
-.search-status {
-  display: grid;
-  justify-items: start;
-  gap: 10px;
-  padding: 6px 0 2px;
-}
-
-.search-status__label {
-  color: var(--color-muted);
-  font-size: var(--text-meta);
-  font-weight: 700;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.search-status .site-loader {
-  min-height: auto;
-  place-items: start;
-}
-
-.search-status .site-loader__track {
-  padding: 0;
+  --loader-dot-size: 8px;
+  --loader-step: 11px;
+  --loader-pad-x: 0px;
+  --loader-pad-y: 0px;
   border: 0;
   background: transparent;
   box-shadow: none;

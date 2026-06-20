@@ -271,13 +271,6 @@ export function DictionarySearch() {
 
       {error ? <p className="status-message status-message--error">{error}</p> : null}
 
-      {isPending ? (
-        <div className="search-status" aria-live="polite">
-          <span className="search-status__label">Searching</span>
-          <SiteLoader />
-        </div>
-      ) : null}
-
       {result ? (
         <section className="result-panel" aria-live="polite">
           <div className="result-header">
