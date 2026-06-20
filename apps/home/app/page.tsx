@@ -1,17 +1,16 @@
 import { PageShell } from "@latesight/ui/page-shell";
+import { SiteLaunchLink } from "./site-launch-link";
 
 export default function HomePage() {
   return (
     <PageShell>
       <section className="page-section" id="sites">
         <div className="hero-panel">
-          <a className="home-site-link" href="https://dict.latesight.com">
-            <h2 className="home-site-title">
-              <span className="home-site-title__dot" aria-hidden="true" />
-              <span>Word Lens</span>
-              <span className="home-site-domain">dict.latesight.com</span>
-            </h2>
-          </a>
+          <SiteLaunchLink
+            href="https://dict.latesight.com"
+            productName="Word Lens"
+            domain="dict.latesight.com"
+          />
         </div>
       </section>
     </PageShell>

@@ -233,6 +233,7 @@ Motion should confirm interaction and improve orientation.
 Loading rule:
 
 - All first-party loading states must use the shared `SiteLoader` dot-sequence animation from `@latesight/ui/site-loader`.
+- Home-to-product entry transitions must use a full-screen loading state with the product name as the primary text and the shared dot loader beneath it.
 - The loader should appear as one horizontal row of small multicolor dots derived from the favicon palette.
 - Dots should appear and fade in sequence, not spin, bounce, or use product-specific custom loaders.
 - If a surface needs an inline loading indicator, adapt spacing around `SiteLoader` rather than inventing a new spinner style.

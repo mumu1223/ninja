@@ -2,6 +2,11 @@
   display: inline-block;
 }
 
+.home-site-link:hover .home-site-title,
+.home-site-link:focus-visible .home-site-title {
+  color: rgba(17, 19, 23, 0.9);
+}
+
 .panel-copy {
   margin: 0 0 16px;
   max-width: 560px;
@@ -14,10 +19,12 @@
   align-items: center;
   gap: 12px;
   margin: 0;
+  color: var(--color-ink);
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.04em;
+  transition: color var(--transition-fast);
 }
 
 .home-site-title__dot {

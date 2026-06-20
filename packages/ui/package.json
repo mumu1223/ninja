@@ -8,6 +8,7 @@
     "./design-tokens.css": "./src/design-tokens.css",
     "./page-shell": "./src/page-shell.tsx",
     "./site-loader": "./src/site-loader.tsx",
+    "./site-launch-overlay": "./src/site-launch-overlay.tsx",
     "./site-footer": "./src/site-footer.tsx",
     "./site-header": "./src/site-header.tsx",
     "./site-card": "./src/site-card.tsx",

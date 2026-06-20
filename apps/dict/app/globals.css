@@ -43,7 +43,8 @@
 
 .search-row .primary-button .site-loader__track {
   --loader-dot-size: 8px;
-  --loader-step: 11px;
+  --loader-pack-step: 4px;
+  --loader-travel: 22px;
   --loader-pad-x: 0px;
   --loader-pad-y: 0px;
   border: 0;
